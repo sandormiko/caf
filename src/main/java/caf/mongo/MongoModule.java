@@ -14,13 +14,14 @@ public class MongoModule extends AbstractModule{
 	public MongoModule(String dbName){
 		this.dbName = dbName;
 	}
+	
 	@Provides
 	public Datastore provideDataStore() {
 		Morphia morphia = new Morphia();
 		return morphia.createDatastore(new MongoClient(), dbName);
 		
 	}
-
+	
 	@Override
 	protected void configure() {
 		// TODO Auto-generated method stub

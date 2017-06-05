@@ -1,9 +1,10 @@
 package caf.admin;
 
-import io.dropwizard.Configuration;
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.*;
-import javax.validation.constraints.*;
+
+import io.dropwizard.Configuration;
 
 public class CafAdminConfiguration extends Configuration {
     

@@ -7,7 +7,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import caf.admin.employees.control.EmployeeService;
 
@@ -30,8 +29,8 @@ public class EmployeeResource {
 
 	@GET
 	@Path("/{id}")
-	public Response getEmployeeById(@PathParam("id") Integer id) {
-		return Response.status(Status.NOT_FOUND).build();
+	public Response getEmployeeById(@PathParam("id") String id) {
+		return Response.ok(employeeSrv.findById(id)).build();
 	}
 
 }

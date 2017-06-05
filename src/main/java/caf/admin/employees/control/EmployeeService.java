@@ -6,27 +6,30 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.query.Query;
-
 import caf.admin.employees.entity.Employee;
 
 public class EmployeeService {
 
-	private final Datastore datastore;
+	private final EmployeeDAO employeeDAO;
+	
 	
 	@Inject
-	public EmployeeService(Datastore datastore){
-		this.datastore = datastore;
+	public EmployeeService(EmployeeDAO employeeDAO){
+		this.employeeDAO = employeeDAO;
 	}
 	
 	public Employee saveEmployee(Employee emp){
-		datastore.save(emp);
+		employeeDAO.save(emp);
 		return emp;
 	}
 	
 	public List<Employee> getEmployees(){
-		return datastore.createQuery(Employee.class).asList();
+		return employeeDAO.find().asList();
+		
+	}
+	
+	public Employee findById(String objectId){
+		return employeeDAO.findById(objectId);
 		
 	}
 }
