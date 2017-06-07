@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 
 import caf.admin.CafAdminConfiguration;
 import caf.admin.employees.boundary.EmployeeResource;
+import caf.foundation.mongo.healthcheck.DatabaseHealthCheck;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;

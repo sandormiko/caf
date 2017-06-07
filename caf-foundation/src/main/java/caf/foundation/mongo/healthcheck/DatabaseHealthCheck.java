@@ -1,4 +1,4 @@
-package caf.admin;
+package caf.foundation.mongo.healthcheck;
 
 import javax.inject.Inject;
 

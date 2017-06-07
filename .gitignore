@@ -4,3 +4,5 @@ target/
 /build/
 .project
 .settings/
+.classpath
+/.classpath
