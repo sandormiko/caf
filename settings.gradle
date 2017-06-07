@@ -1,0 +1,2 @@
+rootProject.name = 'caf'
+include ":caf-admin", ":caf-foundation"
