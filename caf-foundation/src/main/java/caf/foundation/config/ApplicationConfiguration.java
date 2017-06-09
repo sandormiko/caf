@@ -13,6 +13,10 @@ public class ApplicationConfiguration extends Configuration {
 	@NotNull
 	private DataBaseFactory db = new DataBaseFactory();
 
+	@Valid
+	@NotNull
+	private ProducerFactory producer = new ProducerFactory();
+	
 	@JsonProperty("database")
 	public DataBaseFactory getDb() {
 		return db;
@@ -21,6 +25,16 @@ public class ApplicationConfiguration extends Configuration {
 	@JsonProperty("database")
 	public void setDb(DataBaseFactory db) {
 		this.db = db;
+	}
+
+	@JsonProperty("producer")
+	public ProducerFactory getProducer() {
+		return producer;
+	}
+
+	@JsonProperty("producer")
+	public void setProducer(ProducerFactory producer) {
+		this.producer = producer;
 	}
 	
 }

@@ -4,6 +4,7 @@ import com.google.inject.AbstractModule;
 
 import caf.admin.employees.control.EmployeeService;
 import caf.foundation.config.ApplicationConfiguration;
+import caf.foundation.kafka.KafkaModule;
 import caf.foundation.mongo.MongoModule;
 
 public class CafAdminModule extends AbstractModule {
@@ -19,6 +20,7 @@ public class CafAdminModule extends AbstractModule {
 	protected void configure() {
 		bind(ApplicationConfiguration.class).toInstance(config);
 		install(new MongoModule());
+		install(new KafkaModule());
 		bind(EmployeeService.class);
 
 	}

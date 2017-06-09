@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 
 import caf.admin.employees.boundary.EmployeeResource;
 import caf.foundation.config.ApplicationConfiguration;
+import caf.foundation.kafka.ManagedKafkaProducer;
 import caf.foundation.mongo.ManagedMongoClient;
 import caf.foundation.mongo.healthcheck.DatabaseHealthCheck;
 import io.dropwizard.Application;
@@ -33,6 +34,7 @@ public class CafAdminApplication extends Application<ApplicationConfiguration> {
 		environment.jersey().register(injector.getInstance(EmployeeResource.class));
 		environment.healthChecks().register("mongo",injector.getInstance(DatabaseHealthCheck.class));
 		environment.lifecycle().manage(injector.getInstance(ManagedMongoClient.class));
+		environment.lifecycle().manage(injector.getInstance(ManagedKafkaProducer.class));
 	}
 
 }
