@@ -5,26 +5,24 @@ import org.mongodb.morphia.Morphia;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.google.inject.Singleton;
 import com.mongodb.MongoClient;
+
+import caf.foundation.config.ApplicationConfiguration;
 
 public class MongoModule extends AbstractModule {
 
-	private final String dbName;
-
-	public MongoModule(String dbName) {
-		this.dbName = dbName;
-	}
-
 	@Provides
-	public Datastore provideDataStore() {
-		Morphia morphia = new Morphia();
-		return morphia.createDatastore(new MongoClient(), dbName);
+	public Datastore provideDataStore(MongoClient client, 
+			Morphia morphia, ApplicationConfiguration config) {
+		return morphia.createDatastore(client, config.getDb().getDbName());
 
 	}
 
 	@Override
 	protected void configure() {
-		// TODO Auto-generated method stub
+		bind(MongoClient.class).toProvider(MongoClientProvider.class).in(Singleton.class);
+		bind(Morphia.class).toProvider(MorphiaProvider.class).in(Singleton.class);
 
 	}
 }
