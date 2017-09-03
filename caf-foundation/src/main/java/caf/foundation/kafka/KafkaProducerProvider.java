@@ -33,7 +33,7 @@ public class KafkaProducerProvider implements Provider<Producer<String, byte[]>>
 		props.put("value.serializer", org.apache.kafka.common.serialization.ByteArraySerializer.class.getName());
 
 		return new KafkaProducer<String, byte[]>(props);
-		
+
 	}
 
 }

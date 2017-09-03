@@ -1,36 +1,48 @@
 package caf.admin.employees.boundary;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.*;
+import javax.ws.rs.core.*;
 
-import caf.admin.employees.control.EmployeeService;
+import caf.admin.employees.control.EmployeeDAO;
+import caf.admin.employees.entity.Employee;
+import org.apache.kafka.clients.producer.Producer;
+
+import java.net.URI;
 
 @Path("/employees")
 @Produces(MediaType.APPLICATION_JSON)
 public class EmployeeResource {
 
-	private final EmployeeService employeeSrv;
+	private final EmployeeDAO employeeDAO;
+	private final Producer<String, byte[]> producer;
 
 	@Inject
-	public EmployeeResource(EmployeeService empSrv) {
-		this.employeeSrv = empSrv;
+	public EmployeeResource(EmployeeDAO employeeDAO, Producer producer) {
+		this.employeeDAO = employeeDAO;
+		this.producer = producer;
 	}
 
 	@GET
 	public Response getEmployees() {
 
-		return Response.ok(employeeSrv.getEmployees()).build();
+		return Response.ok(employeeDAO.find().asList()).build();
+	}
+
+	@POST
+	public Response saveEmployee(Employee emp, @Context UriInfo uriInfo) {
+
+		Object resourceId = employeeDAO.save(emp).getId();
+		UriBuilder builder = uriInfo.getAbsolutePathBuilder();
+		builder.path(resourceId.toString());
+		return Response.created(builder.build()).build();
+
 	}
 
 	@GET
 	@Path("/{id}")
 	public Response getEmployeeById(@PathParam("id") String id) {
-		return Response.ok(employeeSrv.findById(id)).build();
+		return Response.ok(employeeDAO.findById(id)).build();
 	}
 
 }
