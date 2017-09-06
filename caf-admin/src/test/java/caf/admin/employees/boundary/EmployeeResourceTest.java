@@ -15,10 +15,7 @@ import org.assertj.core.util.Lists;
 import org.eclipse.jetty.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.hamcrest.core.Is;
-import org.junit.Assert;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
@@ -42,22 +39,26 @@ import static org.junit.Assert.assertThat;
 
 public class EmployeeResourceTest {
 
-    private static EmployeeDAO employeeDao;
+    private static Fongo fongo = null;
 
     private static EmployeeDAO setupDAO() {
-        Fongo fongo = new Fongo("inMemoryServer");
+        fongo = new Fongo("inMemoryServer");
         Morphia morphia = new Morphia();
         Datastore ds = morphia.createDatastore(fongo.getMongo(), "test");
         return new EmployeeDAO(ds);
 
     }
 
-    @Rule
-    public FongoRule fongo = new FongoRule();
 
     @ClassRule
     public static final ResourceTestRule resources = ResourceTestRule.builder()
             .addResource(new EmployeeResource(setupDAO())).build();
+
+    @After
+    public void after() {
+        fongo.dropDatabase("test");
+
+    }
 
     @Test
     public void testGetAllEmployees() {
