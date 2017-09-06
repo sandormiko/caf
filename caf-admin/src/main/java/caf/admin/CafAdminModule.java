@@ -19,8 +19,6 @@ public class CafAdminModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		bind(ApplicationConfiguration.class).toInstance(config);
-		install(new MongoModule());
-		install(new KafkaModule());
 		bind(EmployeeDAO.class);
 
 	}

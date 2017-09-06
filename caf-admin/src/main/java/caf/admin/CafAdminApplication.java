@@ -1,5 +1,6 @@
 package caf.admin;
 
+import caf.foundation.mongo.MongoModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -30,7 +31,7 @@ public class CafAdminApplication extends Application<ApplicationConfiguration> {
 
 	@Override
 	public void run(final ApplicationConfiguration configuration, final Environment environment) {
-		Injector injector = Guice.createInjector(new CafAdminModule(configuration));
+		Injector injector = Guice.createInjector(new CafAdminModule(configuration), new MongoModule());
 		environment.jersey().register(injector.getInstance(EmployeeResource.class));
 		environment.healthChecks().register("mongo",injector.getInstance(DatabaseHealthCheck.class));
 		environment.lifecycle().manage(injector.getInstance(ManagedMongoClient.class));

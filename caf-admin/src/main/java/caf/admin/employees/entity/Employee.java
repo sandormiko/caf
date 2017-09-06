@@ -1,5 +1,6 @@
 package caf.admin.employees.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.mongodb.morphia.annotations.Entity;
@@ -15,7 +16,7 @@ public class Employee {
 
 	private String lastName;
 
-	private Date birthDate;
+	private LocalDate birthDate;
 
 	private boolean hasPremiumAccess;
 
@@ -35,12 +36,23 @@ public class Employee {
 	 * @param birthDate
 	 * @param hasPremiumAccess
 	 */
-	public Employee(String firstName, String lastName, Date birthDate, boolean hasPremiumAccess) {
+	public Employee(String firstName, String lastName, LocalDate birthDate, boolean hasPremiumAccess) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
 		this.hasPremiumAccess = hasPremiumAccess;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee{" +
+				"objectId='" + objectId + '\'' +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", birthDate=" + birthDate +
+				", hasPremiumAccess=" + hasPremiumAccess +
+				'}';
 	}
 
 	public String getObjectId() {
@@ -67,11 +79,11 @@ public class Employee {
 		this.lastName = lastName;
 	}
 
-	public Date getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 

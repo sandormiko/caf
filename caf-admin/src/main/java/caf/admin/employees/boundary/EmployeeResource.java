@@ -1,26 +1,22 @@
 package caf.admin.employees.boundary;
 
+import caf.admin.employees.control.EmployeeDAO;
+import caf.admin.employees.entity.Employee;
+
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-
-import caf.admin.employees.control.EmployeeDAO;
-import caf.admin.employees.entity.Employee;
-import org.apache.kafka.clients.producer.Producer;
-
-import java.net.URI;
 
 @Path("/employees")
 @Produces(MediaType.APPLICATION_JSON)
 public class EmployeeResource {
 
 	private final EmployeeDAO employeeDAO;
-	private final Producer<String, byte[]> producer;
 
 	@Inject
-	public EmployeeResource(EmployeeDAO employeeDAO, Producer producer) {
+	public EmployeeResource(EmployeeDAO employeeDAO) {
 		this.employeeDAO = employeeDAO;
-		this.producer = producer;
+
 	}
 
 	@GET
