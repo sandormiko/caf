@@ -7,10 +7,7 @@ import caf.admin.employees.control.EmployeeDAO;
 import caf.admin.employees.entity.Employee;
 import com.github.fakemongo.Fongo;
 import io.dropwizard.testing.junit.ResourceTestRule;
-import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
@@ -31,17 +28,13 @@ public class EmployeeResourceTest {
 
     private static Fongo fongo = null;
 
-    @BeforeClass
-    public static void initFongo(){
-        fongo = new Fongo("inMemoryServer");
-    }
 
-
-    @Rule
-    public final ResourceTestRule resources = ResourceTestRule.builder()
+    @ClassRule
+    public static final ResourceTestRule resources = ResourceTestRule.builder()
             .addResource(new EmployeeResource(setupEmployeeDAO())).build();
 
-    private EmployeeDAO setupEmployeeDAO() {
+    private static EmployeeDAO setupEmployeeDAO() {
+        fongo = new Fongo("inMemoryServer");
         Morphia morphia = new Morphia();
         Datastore ds = morphia.createDatastore(fongo.getMongo(), "test");
         return new EmployeeDAO(ds);

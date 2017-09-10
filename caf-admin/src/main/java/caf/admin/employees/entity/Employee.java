@@ -46,7 +46,7 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee{" +
+		return "Partner{" +
 				"objectId='" + objectId + '\'' +
 				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +
