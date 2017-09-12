@@ -1,8 +1,7 @@
 package caf.admin.partners.control;
 
 
-import caf.admin.partners.entity.Adress;
-import caf.admin.partners.entity.Partner;
+import caf.admin.partners.entity.Address;
 
 public class AdressBuilder {
 
@@ -37,7 +36,7 @@ public class AdressBuilder {
         return this;
     }
 
-    public Adress build(){
-        return new Adress(street,city, postCode, country);
+    public Address build(){
+        return new Address(street,city, postCode, country);
     }
 }

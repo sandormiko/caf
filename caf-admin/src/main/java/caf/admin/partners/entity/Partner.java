@@ -27,11 +27,11 @@ public class Partner {
 		this.account = account;
 	}
 
-	public Set<Adress> getAdresses() {
+	public Set<Address> getAdresses() {
 		return adresses;
 	}
 
-	public void setAdresses(Set<Adress> adresses) {
+	public void setAdresses(Set<Address> adresses) {
 		this.adresses = adresses;
 	}
 
@@ -44,7 +44,7 @@ public class Partner {
 		this.name = name;
 	}
 
-	public Partner(String name, String account, Set<Adress> adresses) {
+	public Partner(String name, String account, Set<Address> adresses) {
 		this.name = name;
 		this.account = account;
 		this.adresses = adresses;
@@ -54,7 +54,7 @@ public class Partner {
 	private String account;
 
 	@Embedded
-	private Set<Adress> adresses = new HashSet<>();
+	private Set<Address> adresses = new HashSet<>();
 
 
 }

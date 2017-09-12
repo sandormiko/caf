@@ -1,17 +1,16 @@
 package caf.admin.partners.control;
 
 
-import caf.admin.partners.entity.Adress;
+import caf.admin.partners.entity.Address;
 import caf.admin.partners.entity.Partner;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 public class PartnerBuilder {
 
     private String name;
     private String account;
-    private Set<Adress> adresses;
+    private Set<Address> adresses;
 
     private PartnerBuilder(){}
 
@@ -30,7 +29,7 @@ public class PartnerBuilder {
         return this;
     }
 
-    public PartnerBuilder withAdresses(Set<Adress> adresss) {
+    public PartnerBuilder withAdresses(Set<Address> adresss) {
         this.adresses = adresss;
         return this;
     }
