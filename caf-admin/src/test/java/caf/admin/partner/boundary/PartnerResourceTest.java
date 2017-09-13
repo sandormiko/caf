@@ -8,15 +8,15 @@ import caf.admin.partners.control.PartnerBuilder;
 import caf.admin.partners.control.PartnerDAO;
 import caf.admin.partners.entity.Address;
 import caf.admin.partners.entity.Partner;
-import com.github.fakemongo.Fongo;
+import caf.admin.fongo.InMemoryDataSource;
+import caf.admin.users.boundary.UserResource;
+import caf.admin.users.control.UserDAO;
 import io.dropwizard.testing.junit.ResourceTestRule;
 import org.assertj.core.util.Sets;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
 
 import java.util.Set;
 
@@ -27,24 +27,19 @@ import static org.eclipse.jetty.http.HttpStatus.OK_200;
 
 public class PartnerResourceTest {
 
-    private static Fongo fongo = null;
+    private static final String DB_NAME = "test";
+    private static final InMemoryDataSource ds = new InMemoryDataSource(DB_NAME);
+
     private PartnerDriver driver;
 
     @ClassRule
     public static final ResourceTestRule resources = ResourceTestRule.builder()
-            .addResource(new PartnerResource(setupDAO())).build();
-
-    private static PartnerDAO setupDAO() {
-        fongo = new Fongo("inMemoryServer");
-        Morphia morphia = new Morphia();
-        Datastore ds = morphia.createDatastore(fongo.getMongo(), "test");
-        return new PartnerDAO(ds);
-
-    }
+            .addResource(new PartnerResource(new PartnerDAO(ds.getDataStore())))
+            .addResource(new UserResource(new UserDAO(ds.getDataStore()))).build();
 
     @After
     public void tearDown() {
-        fongo.dropDatabase("test");
+        ds.dropDataBase();
     }
 
     @Before

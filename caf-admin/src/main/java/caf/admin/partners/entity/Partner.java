@@ -1,5 +1,6 @@
 package caf.admin.partners.entity;
 
+import caf.admin.users.entity.User;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -44,9 +45,18 @@ public class Partner {
 		this.name = name;
 	}
 
+	public Set<User> getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(Set<User> contacts) {
+		this.contacts = contacts;
+	}
+
 	public Partner(String name, String account, Set<Address> adresses) {
 		this.name = name;
 		this.account = account;
+
 		this.adresses = adresses;
 
 	}
@@ -55,6 +65,9 @@ public class Partner {
 
 	@Embedded
 	private Set<Address> adresses = new HashSet<>();
+
+	@Embedded
+	private Set<User> contacts = new HashSet<>();
 
 
 }

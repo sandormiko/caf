@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="caf-admin_main" target="1.8" />
+      <module name="caf-admin_test" target="1.8" />
+      <module name="caf-foundation_main" target="1.8" />
+      <module name="caf-foundation_test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

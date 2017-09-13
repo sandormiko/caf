@@ -1,11 +1,12 @@
 package caf.admin;
 
+import caf.admin.employees.boundary.EmployeeResource;
 import caf.foundation.kafka.KafkaModule;
 import caf.foundation.mongo.MongoModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import caf.admin.employee.boundary.EmployeeResource;
+
 import caf.foundation.config.ApplicationConfiguration;
 import caf.foundation.kafka.ManagedKafkaProducer;
 import caf.foundation.mongo.ManagedMongoClient;

@@ -2,14 +2,13 @@ package caf.admin.employee.boundary;
 
 
 import caf.admin.employee.matcher.EmployeeMatcher;
+import caf.admin.employees.boundary.EmployeeResource;
 import caf.admin.employees.control.EmployeeBuilder;
 import caf.admin.employees.control.EmployeeDAO;
 import caf.admin.employees.entity.Employee;
-import com.github.fakemongo.Fongo;
+import caf.admin.fongo.InMemoryDataSource;
 import io.dropwizard.testing.junit.ResourceTestRule;
 import org.junit.*;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
 
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
@@ -26,24 +25,19 @@ import static org.junit.Assert.assertThat;
 
 public class EmployeeResourceTest {
 
-    private static Fongo fongo = null;
+    private static final String DB_NAME = "test";
+    private static final InMemoryDataSource ds = new InMemoryDataSource(DB_NAME);
 
 
     @ClassRule
     public static final ResourceTestRule resources = ResourceTestRule.builder()
-            .addResource(new EmployeeResource(setupEmployeeDAO())).build();
+            .addResource(new EmployeeResource(new EmployeeDAO(ds.getDataStore()))).build();
 
-    private static EmployeeDAO setupEmployeeDAO() {
-        fongo = new Fongo("inMemoryServer");
-        Morphia morphia = new Morphia();
-        Datastore ds = morphia.createDatastore(fongo.getMongo(), "test");
-        return new EmployeeDAO(ds);
 
-    }
 
     @After
     public void after() {
-        fongo.dropDatabase("test");
+        ds.dropDataBase();
 
     }
 
